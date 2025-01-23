@@ -214,6 +214,7 @@ class DoublyLinkedList{
         this.size--;
     }
 }
+
 public class P5_LinkedList {
     public static void main(String[] args) {
         SinglyLinkedList list = new SinglyLinkedList();
