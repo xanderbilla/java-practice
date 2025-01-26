@@ -21,6 +21,7 @@ class LLOperation {
         Node newNode = new Node(val);
         if (head == null) {
             head = newNode;
+            return;
         }
         if (head.data > val) {
             newNode.next = head;
@@ -29,23 +30,36 @@ class LLOperation {
         }
         Node temp = head;
         while (temp.next != null && temp.next.data < val) {
-            if (temp.data < val) {
-                temp = temp.next;
-            }
-            newNode = temp.next;
-            temp.next = newNode;
-            return;
+            temp = temp.next;
         }
+        newNode.next = temp.next;
+        temp.next = newNode;
     }
 
     public void display(){
         Node temp = head;
 
         while(temp != null){
-            System.out.println(temp.data + " -> ");
+            System.out.print(temp.data + " -> ");
             temp = temp.next;
         }
         System.out.println("null");
+    }
+
+
+    //remove duplicates
+    public void removeDuplicates(){
+        Node curr = head;
+        if(head == null){
+            return;
+        }
+        while(curr != null && curr.next != null){
+            if(curr.data == curr.next.data){
+                curr.next = curr.next.next;
+            }else{
+                curr = curr.next;
+            }
+        }
     }
 
 }

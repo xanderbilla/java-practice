@@ -1,234 +1,215 @@
 package com.myclass.pep_classes;
-
-class SNode{
+// Node class for S Linked List
+class SNode {
     int data;
     SNode next;
-    SNode(int data){
+
+    SNode(int data) {
         this.data = data;
         this.next = null;
     }
 }
 
-class DNode{
+// Node class for Doubly Linked List
+class DNode {
     int data;
     DNode next;
     DNode prev;
-    DNode(int data){
+
+    DNode(int data) {
         this.data = data;
         this.next = null;
         this.prev = null;
     }
 }
 
-class SinglyLinkedList{
-    SNode head;
-    SNode tail;
-    int size;
-    SinglyLinkedList(){
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
+// Singly Linked List operations
+class SLinkedList {
+    private SNode head;
+
+    // Insert at front
+    public void insertAtFront(int data) {
+        SNode newNode = new SNode(data);
+        newNode.next = head;
+        head = newNode;
     }
 
-    public void addFirst(int data){
-        SNode node = new SNode(data);
-        if(this.size == 0){
-            this.head = this.tail = node;
-        }else{
-            node.next = this.head;
-            this.head = node;
-        }
-        this.size++;
-    }
-
-    public void addLast(int data){
-        SNode node = new SNode(data);
-        if(this.size == 0){
-            this.head = this.tail = node;
-        }else{
-            this.tail.next = node;
-            this.tail = node;
-        }
-        this.size++;
-    }
-
-    public void addAt(int data, int idx){
-        if(idx < 0 || idx > this.size){
-            System.out.println("Invalid Index");
+    // Insert at position
+    public void insertAtPosition(int data, int position) {
+        if (position < 1) {
+            System.out.println("Position should be >= 1.");
             return;
         }
-        if(idx == 0){
-            addFirst(data);
-        }else if(idx == this.size){
-            addLast(data);
-        }else{
-            SNode node = new SNode(data);
-            SNode prev = getNodeAt(idx - 1);
-            node.next = prev.next;
-            prev.next = node;
-            this.size++;
-        }
-    }
 
-    public SNode getNodeAt(int idx){
-        SNode temp = this.head;
-        while(idx-- > 0){
+        if (position == 1) {
+            insertAtFront(data);
+            return;
+        }
+
+        SNode newNode = new SNode(data);
+        SNode temp = head;
+
+        for (int i = 1; i < position - 1 && temp != null; i++) {
             temp = temp.next;
         }
-        return temp;
+
+        if (temp == null) {
+            System.out.println("Position out of range.");
+        } else {
+            newNode.next = temp.next;
+            temp.next = newNode;
+        }
     }
 
-    public void removeFirst(){
-        if(this.size == 0){
-            System.out.println("List is Empty");
+    // Insert at end
+    public void insertAtEnd(int data) {
+        SNode newNode = new SNode(data);
+        if (head == null) {
+            head = newNode;
             return;
         }
-        if(this.size == 1){
-            this.head = this.tail = null;
-        }else{
-            SNode temp = this.head;
-            this.head = this.head.next;
-            temp.next = null;
+
+        SNode temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
         }
-        this.size--;
+        temp.next = newNode;
     }
 
-    public void removeLast(){
-        if(this.size == 0){
-            System.out.println("List is Empty");
-            return;
+    // Search
+    public boolean search(int data) {
+        SNode temp = head;
+        while (temp != null) {
+            if (temp.data == data) {
+                return true;
+            }
+            temp = temp.next;
         }
-        if(this.size == 1){
-            this.head = this.tail = null;
-        }else{
-            SNode temp = getNodeAt(this.size - 2);
-            temp.next = null;
-            this.tail = temp;
-        }
-        this.size--;
+        return false;
     }
 
-    public void removeAt(int idx){
-        if(idx < 0 || idx >= this.size){
-            System.out.println("Invalid Index");
-            return;
-        }
-        if(idx == 0){
-            removeFirst();
-        }else if(idx == this.size - 1){
-            removeLast();
-        }else{
-            SNode prev = getNodeAt(idx - 1);
-            SNode temp = prev.next;
-            prev.next = temp.next;
-            temp.next = null;
-            this.size--;
+    //Insert using array
+    public void insertArray(int arr[]){
+        for (int i : arr) {
+            insertAtEnd(i);
         }
     }
 
-    public void display(){
-        SNode temp = this.head;
-        while(temp != null){
+    // Display
+    public void display() {
+        SNode temp = head;
+        while (temp != null) {
             System.out.print(temp.data + " -> ");
             temp = temp.next;
         }
-        System.out.println("null");
+        System.out.println();
     }
 }
 
-class DoublyLinkedList{
-    DNode head;
-    DNode tail;
-    int size;
-    DoublyLinkedList(){
-        this.head = null;
-        this.tail = null;
-        this.size = 0;
-    }
+// D Linked List operations
+class DLinkedList {
+    private DNode head;
 
-    public void addFirst(int data){
-        DNode node = new DNode(data);
-        if(this.size == 0){
-            this.head = this.tail = node;
-        }else{
-            node.next = this.head;
-            this.head.prev = node;
-            this.head = node;
+    // Insert at front
+    public void insertAtFront(int data) {
+        DNode newNode = new DNode(data);
+        if (head != null) {
+            head.prev = newNode;
         }
-        this.size++;
+        newNode.next = head;
+        head = newNode;
     }
 
-    public void addLast(int data){
-        DNode node = new DNode(data);
-        if(this.size == 0){
-            this.head = this.tail = node;
-        }else{
-            this.tail.next = node;
-            node.prev = this.tail;
-            this.tail = node;
-        }
-        this.size++;
-    }
-
-    public void addAt(int data, int idx){
-        if(idx < 0 || idx > this.size){
-            System.out.println("Invalid Index");
+    // Insert at position
+    public void insertAtPosition(int data, int position) {
+        if (position < 1) {
+            System.out.println("Position should be >= 1.");
             return;
         }
-        if(idx == 0){
-            addFirst(data);
-        }else if(idx == this.size){
-            addLast(data);
-        }else{
-            DNode node = new DNode(data);
-            DNode prev = getNodeAt(idx - 1);
-            node.next = prev.next;
-            prev.next.prev = node;
-            prev.next = node;
-            node.prev = prev;
-            this.size++;
-        }
-    }
 
-    public DNode getNodeAt(int idx){
-        DNode temp = this.head;
-        while(idx-- > 0){
+        if (position == 1) {
+            insertAtFront(data);
+            return;
+        }
+
+        DNode newNode = new DNode(data);
+        DNode temp = head;
+
+        for (int i = 1; i < position - 1 && temp != null; i++) {
             temp = temp.next;
         }
-        return temp;
+
+        if (temp == null) {
+            System.out.println("Position out of range.");
+        } else {
+            newNode.next = temp.next;
+            if (temp.next != null) {
+                temp.next.prev = newNode;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
     }
 
-    public void removeFirst(){
-        if(this.size == 0){
-            System.out.println("List is Empty");
+    // Insert at end
+    public void insertAtEnd(int data) {
+        DNode newNode = new DNode(data);
+        if (head == null) {
+            head = newNode;
             return;
         }
-        if(this.size == 1){
-            this.head = this.tail = null;
-        }else{
-            DNode temp = this.head;
-            this.head = this.head.next;
-            temp.next = null;
-            this.head.prev = null;
+
+        DNode temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
         }
-        this.size--;
+        temp.next = newNode;
+        newNode.prev = temp;
+    }
+
+    // Search
+    public boolean search(int data) {
+        DNode temp = head;
+        while (temp != null) {
+            if (temp.data == data) {
+                return true;
+            }
+            temp = temp.next;
+        }
+        return false;
+    }
+
+    // Display
+    public void display() {
+        DNode temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println();
     }
 }
 
 public class P5_LinkedList {
-    public static void main(String[] args) {
-        SinglyLinkedList list = new SinglyLinkedList();
-        list.addFirst(10); // 10
-        list.addFirst(20); // 20 -> 10
-        list.addFirst(30); // 30 -> 20 -> 10
-        list.addLast(40); // 30 -> 20 -> 10 -> 40
-        list.addLast(50); // 30 -> 20 -> 10 -> 40 -> 50
-        list.addAt(25, 2); // 30 -> 20 -> 25 -> 10 -> 40 -> 50
-        list.addAt(35, 4); // 30 -> 20 -> 25 -> 10 -> 35 -> 40 -> 50
-        list.display(); // 30 -> 20 -> 25 -> 10 -> 35 -> 40 -> 50
-        list.removeFirst(); // 20 -> 25 -> 10 -> 35 -> 40 -> 50
-        list.removeLast(); // 20 -> 25 -> 10 -> 35 -> 40
-        list.removeAt(2); // 20 -> 25 -> 35 -> 40
-        list.display(); // 20 -> 25 -> 35 -> 40
-    }    
+    public static void run() {
+        SLinkedList SLinkedList = new SLinkedList();
+        SLinkedList.insertAtEnd(10);
+        SLinkedList.insertAtEnd(20);
+        SLinkedList.insertAtEnd(30);
+        SLinkedList.insertAtFront(5);
+        SLinkedList.insertAtPosition(15, 2);
+        SLinkedList.display();
+        System.out.println(SLinkedList.search(20));
+        System.out.println(SLinkedList.search(25));
+
+        DLinkedList DLinkedList = new DLinkedList();
+        DLinkedList.insertAtEnd(10);
+        DLinkedList.insertAtEnd(20);
+        DLinkedList.insertAtEnd(30);
+        DLinkedList.insertAtFront(5);
+        DLinkedList.insertAtPosition(15, 2);
+        DLinkedList.display();
+        System.out.println(DLinkedList.search(20));
+        System.out.println(DLinkedList.search(25));
+    }
 }
