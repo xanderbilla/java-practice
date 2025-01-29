@@ -118,6 +118,7 @@ class PreStack{
         printStackRec(stack);
         System.out.print(x + " ");
         stack.push(x);
+    }
 }
 
 public class S2_Stack {

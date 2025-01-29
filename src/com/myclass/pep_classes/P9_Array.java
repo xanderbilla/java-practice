@@ -41,6 +41,27 @@ class ArrayPractice {
     }
 
     // Find first avg of first 4 elements using bubble
+    public int top4Average(List<Integer> list) {
+        int k = 4;
+        int sum = 0;
+
+        for (int i = 0; i < k; i++) {
+            boolean swap = false;
+            for (int j = 0; j < list.size() - 1; j++) {
+                if (list.get(j) > list.get(j + 1)) {
+                    Collections.swap(list, j, j + 1);
+                    swap = true;
+                }
+            }
+            sum += list.get(list.size() - 1 - i);
+
+            if (!swap) {
+                break;
+            }
+        }
+        int average = sum / k;
+        return average;
+    }
 
     /*
      * Selection sort
