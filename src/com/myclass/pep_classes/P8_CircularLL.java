@@ -1,8 +1,9 @@
 package com.myclass.pep_classes;
 
+// Node class for Singly Circular Linked List
 class SNode {
-    int data;
-    SNode next;
+    int data;        // Data stored in the node
+    SNode next;      // Reference to next node
 
     public SNode(int val) {
         this.data = val;
@@ -10,10 +11,11 @@ class SNode {
     }
 }
 
+// Node class for Doubly Circular Linked List
 class DNode {
-    int data;
-    DNode next;
-    DNode prev;
+    int data;        // Data stored in the node
+    DNode next;      // Reference to next node
+    DNode prev;      // Reference to previous node
 
     public DNode(int val) {
         this.data = val;
@@ -22,44 +24,49 @@ class DNode {
     }
 }
 
+// Singly Circular Linked List implementation
 class SCircularLL {
-    SNode head;
+    private SNode head;   // Head of the linked list
 
+    // Initialize empty list
     SCircularLL() {
-        head.next = null;
+        head = null;      // Fixed: Initialize head as null instead of accessing it
     }
 
-    public void dsiplay() {
+    // Display all elements in the list
+    public void display() {   // Fixed: Corrected method name spelling
         if (head == null) {
             System.out.println("List is empty");
             return;
         }
         SNode temp = head;
-        while (temp.next != head) {
+        do {
             System.out.print(temp.data + " -> ");
             temp = temp.next;
-        }
-
+        } while (temp != head);
+        System.out.println("HEAD");    // Added to show completion of circle
     }
 
-    // Insertion at front
+    // Insert a new node at the beginning of the list
     public void insertAtFront(int data) {
         SNode newNode = new SNode(data);
         if (head == null) {
             head = newNode;
-            head.next = head;
+            head.next = head;  // Point to itself for circular nature
             return;
         }
-        newNode.next = head;
-        SNode temp = head;
-        while (temp.next != head) {
-            temp = temp.next;
+        
+        // Find the last node and update connections
+        SNode last = head;
+        while (last.next != head) {
+            last = last.next;
         }
-        temp.next = newNode;
+        newNode.next = head;
+        last.next = newNode;
         head = newNode;
     }
 
-    // Insertion at end
+    // Insert a new node at the end of the list
     public void insertAtEnd(int data) {
         SNode newNode = new SNode(data);
         if (head == null) {
@@ -67,120 +74,60 @@ class SCircularLL {
             head.next = head;
             return;
         }
-        SNode temp = head;
-        while (temp.next != head) {
-            temp = temp.next;
+        
+        // Find the last node and update connections
+        SNode last = head;
+        while (last.next != head) {
+            last = last.next;
         }
-        temp.next = newNode;
+        last.next = newNode;
         newNode.next = head;
     }
 
-    // Insert at position
+    // Insert a new node at a specific position
     public void insertAtPosition(int val, int pos) {
+        if (pos <= 0) {
+            System.out.println("Invalid position");
+            return;
+        }
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        
         SNode newNode = new SNode(val);
         SNode temp = head;
-        int count = 1;
-        while (head == null) {
-            return;
-        }
-        while (temp.next != null) {
-            if (count == pos - 1) {
-                newNode.next = temp.next;
-                temp.next = newNode;
-                return;
-            }
+        for (int i = 1; i < pos - 1 && temp.next != head; i++) {
             temp = temp.next;
-            count++;
         }
-
+        newNode.next = temp.next;
+        temp.next = newNode;
     }
 }
 
-class DCircularLL {
-    DNode head;
-
-    DCircularLL() {
-        head.next = null;
-        head.prev = null;
-    }
-
-    public void dsiplay() {
-        if (head == null) {
-            System.out.println("List is empty");
-            return;
-        }
-        DNode temp = head;
-        while (temp.next != head) {
-            System.out.print(temp.data + " -> ");
-            temp = temp.next;
-        }
-
-    }
-
-    // Insertion at front
-    public void insertAtFront(int data) {
-        DNode newNode = new DNode(data);
-        if (head == null) {
-            head = newNode;
-            head.next = newNode;
-            head.prev = newNode;
-        }
-        newNode.next = head;
-        newNode.prev = head.prev;
-        head.prev.next = newNode;
-        head.prev = newNode;
-        head = newNode;
-    }
-
-    // Insertion at end
-    public void insertAtEnd(int data) {
-        DNode newNode = new DNode(data);
-        if (head == null) {
-            head = newNode;
-            head.next = newNode;
-            head.prev = newNode;
-        }
-        newNode.next = head;
-        newNode.prev = head.prev;
-        head.prev.next = newNode;
-        head.prev = newNode;
-    }
-
-    // Insert at position
-    public void insertAtPosition(int val, int pos) {
-        DNode newNode = new DNode(val);
-        DNode temp = head;
-        int count = 1;
-        while (head == null) {
-            return;
-        }
-        while (temp.next != null) {
-            if (count == pos - 1) {
-                newNode.next = temp.next;
-                newNode.prev = temp;
-                temp.next.prev = newNode;
-                temp.next = newNode;
-                return;
-            }
-            temp = temp.next;
-            count++;
-        }
-    }
-}
-
+// Main class to demonstrate functionality
 public class P8_CircularLL {
     public static void run() {
-        SCircularLL scll = new SCircularLL();
-        scll.insertAtFront(10);
-        scll.insertAtFront(20);
-        scll.insertAtFront(30);
-        scll.insertAtFront(40);
-        scll.insertAtFront(50);
-        scll.insertAtEnd(5);
-        scll.insertAtEnd(4);
-        scll.insertAtEnd(3);
-        scll.insertAtEnd(2);
-        scll.insertAtEnd(1);
-        scll.dsiplay();
+        System.out.println("Creating a Singly Circular Linked List:");
+        SCircularLL list = new SCircularLL();
+        
+        // Adding elements at front
+        System.out.println("\nInserting elements at front: 50, 40, 30, 20, 10");
+        list.insertAtFront(10);
+        list.insertAtFront(20);
+        list.insertAtFront(30);
+        list.insertAtFront(40);
+        list.insertAtFront(50);
+        
+        // Adding elements at end
+        System.out.println("\nInserting elements at end: 5, 4, 3, 2, 1");
+        list.insertAtEnd(5);
+        list.insertAtEnd(4);
+        list.insertAtEnd(3);
+        list.insertAtEnd(2);
+        list.insertAtEnd(1);
+        
+        System.out.println("\nFinal list:");
+        list.display();
     }
 }

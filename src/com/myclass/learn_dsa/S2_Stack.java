@@ -3,7 +3,7 @@ package com.myclass.learn_dsa;
 import java.util.Scanner;
 import java.util.Stack;
 
-class PreStack{
+class PreStack {
     public void stlStack() {
         /*
          * Stack in build methods
@@ -29,12 +29,12 @@ class PreStack{
         System.out.println(stack.search(40));
     }
 
-    public void copyStack(){
+    public void copyStack() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the size of stack: ");
         Stack<Integer> stack = new Stack<>();
         int n = sc.nextInt();
-        for(int i=0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             stack.push(sc.nextInt());
         }
 
@@ -42,8 +42,8 @@ class PreStack{
         System.out.println(stack);
 
         Stack<Integer> tempStack = new Stack<>();
-        while(!stack.isEmpty()){
-            tempStack.push(stack.pop()); //pop() remove and display element from top of stack
+        while (!stack.isEmpty()) {
+            tempStack.push(stack.pop()); // pop() remove and display element from top of stack
         }
 
         System.out.print("Reversed Stack: ");
@@ -51,73 +51,73 @@ class PreStack{
         sc.close();
 
         Stack<Integer> duplicateStack = new Stack<>();
-        while(!tempStack.isEmpty()){
+        while (!tempStack.isEmpty()) {
             duplicateStack.push(tempStack.pop());
         }
         System.out.print("Duplicate Stack: ");
         System.out.println(duplicateStack);
     }
 
-    //Insert element at given position (using iteration)
-    public void insertAtPosIter(Stack<Integer> stack, int x, int pos){
+    // Insert element at given position (using iteration)
+    public void insertAtPosIter(Stack<Integer> stack, int x, int pos) {
         if (pos < 0 || pos > stack.size()) {
             throw new IllegalArgumentException("Position out of range");
         }
-        if(stack.empty()){
-            if(pos == 0){
+        if (stack.empty()) {
+            if (pos == 0) {
                 stack.push(x);
                 return;
-            }
-            else{
+            } else {
                 throw new IllegalArgumentException("Position out of range");
             }
         }
         Stack<Integer> tempStack = new Stack<>();
-        while(stack.size() > pos){
+        while (stack.size() > pos) {
             tempStack.push(stack.pop());
         }
         stack.push(x);
-        while(!tempStack.empty()){
+        while (!tempStack.empty()) {
             stack.push(tempStack.pop());
         }
         System.out.println("Stack after inserting element at position " + pos + " is: " + stack);
     }
 
-    //Print stack using iteration
-    public void printStack(Stack<Integer> stack){
+    // Print stack using iteration
+    public void printStack(Stack<Integer> stack) {
         Stack<Integer> tempStack = new Stack<>();
-        while(!stack.empty()){
+        while (!stack.empty()) {
             tempStack.push(stack.pop());
         }
-        while(!tempStack.empty()){
+        while (!tempStack.empty()) {
             System.out.print(tempStack.peek() + " ");
             stack.push(tempStack.pop());
         }
     }
 
-    //Print stack using iteration and array
-    public void printStackArray(Stack<Integer> stack){
+    // Print stack using iteration and array
+    public void printStackArray(Stack<Integer> stack) {
         int[] arr = new int[stack.size()];
-        int i = stack.size()-1;
-        while(!stack.empty()){
+        int i = stack.size() - 1;
+        while (!stack.empty()) {
             arr[i] = stack.pop();
             i--;
         }
-        for(int j=0; j<arr.length; j++){
+        for (int j = 0; j < arr.length; j++) {
             System.out.print(arr[j] + " ");
             stack.push(arr[j]);
         }
     }
 
-    //Print stack using recursion
-    public void printStackRec(Stack<Integer> stack){
-        if(stack.empty()){
+    // Print stack using recursion
+    public void printStackRec(Stack<Integer> stack) {
+        if (stack.empty()) {
             return;
         }
         int x = stack.pop();
         printStackRec(stack);
         System.out.print(x + " ");
         stack.push(x);
+    }
 }
 
 public class S2_Stack {
