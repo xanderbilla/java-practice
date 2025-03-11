@@ -1,18 +1,21 @@
-## Getting Started
+# ☕ Java Practice Repository  
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+🚀 This repository is dedicated to practicing **Java** and its frameworks, including **Collections** and other core concepts. It serves as a learning space for exploring Java fundamentals and advanced features.  
 
-## Folder Structure
+## 📌 Topics Covered  
 
-The workspace contains two folders by default, where:
+✅ Java Core Concepts  
+✅ Collections Framework  
+✅ Data Structures & Algorithms  
+✅ Object-Oriented Programming (OOP)  
+✅ Exception Handling & Multithreading  
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## 📌 Project Status  
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+This is an ongoing repository for continuous learning and improvement in Java.  
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## 👨‍💻 Author  
 
-## Dependency Management
+**[Vikas Singh](https://xanderbilla.com)**  
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+---  
